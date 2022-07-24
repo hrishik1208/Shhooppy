@@ -1,31 +1,29 @@
+import io
+import codecs
 import pickle
 import json
+
+
 from flask import Flask, render_template, request, jsonify   
 app = Flask(__name__,template_folder='templates')
+myfile=open(r"S.txt","r")
+Myfile=open(r"S1.txt","r")
 
-with open("S.txt", 'r') as myfile:
-    l=myfile.readline()
-    
-with open("S1.txt", 'r') as Myfile:
-    L=Myfile.readline()
-    
-#myfile=open("S.txt","r")
-#Myfile=open("S1.txt","r")
 price={"apple":50,"banana":17,"grapes":10,"coconut":15,"amul lassi":10,"amul paneer":400,"amul cheese spread":300,"amul taaza":50,"pencil":1,"bag":200,"bottle":180,"notebook":200,"shampoo":250,"oil":120,"soap":90,"face cream":160}
-#l=myfile.readline()
-#L=Myfile.readline()
+l=myfile.readline()
+L=Myfile.readline()
 if l=="":
     p=dict()
     
 else:
-    myfile=open("S.txt","rb")
+    myfile=open(r"S.txt","rb")
     p=pickle.load(myfile)
 myfile.close()
 Myfile.close()
 if L=="":
     P=dict()
 else:
-    Myfile=open("S1.txt","rb")
+    Myfile=open(r"S1.txt","rb")
     P=pickle.load(Myfile)
 Myfile.close()
 @app.route("/")
@@ -64,21 +62,21 @@ def processJSON():
                 p[lst1[i]]+=lst2[i]
             else:
                 p[lst1[i]]=lst2[i]
-        myfile=open("S.txt","wb")
+        myfile=codecs.open("S.txt","wb",encoding="utf-8")
         pickle.dump(p,myfile)
         myfile.close()
-        myfile=open("S.txt","rb")
+        myfile=codecs.open("S.txt","rb",encoding="utf-8")
         p=pickle.load(myfile)
         myfile.close()
         
-        Myfile=open("S1.txt","wb")
+        Myfile=codecs.open("S1.txt","wb",encoding="utf-8")
         P[SUM]=l1
         pickle.dump(P,Myfile)
         Myfile.close()
-        Myfile=open("S1.txt","rb")
+        Myfile=codecs.open("S1.txt","rb",encoding="utf-8")
         P=pickle.load(Myfile)
         Myfile.close()
-        n=open("p.txt","w")
+        n=codecs.open("p.txt","w",encoding="utf-8")
         n.write(str(lst1)+"\n")
         n.write(str(lst2)+"\n")
         n.close()
@@ -89,7 +87,7 @@ def processJSON():
 
 @app.route("/view")
 def view():
-    myfile=open("S.txt","rb")
+    myfile=codecs.open("S.txt","rb",encoding="utf-8")
     p=pickle.load(myfile)
     myfile.close()
     return render_template("view.html",p=p)
@@ -122,10 +120,10 @@ def processjSON():
                     p[lst1[i]]-=lst2[i]
                 else:
                     p[lst1[i]]=0
-        myfile=open("S.txt","wb")
+        myfile=codecs.open("S.txt","wb",encoding="utf-8")
         pickle.dump(p,myfile)
         myfile.close()
-        myfile=open("S.txt","rb")
+        myfile=codecs.open("S.txt","rb",encoding="utf-8")
         p=pickle.load(myfile)
         myfile.close()
         s="Items Removed From Stock Successfully"
