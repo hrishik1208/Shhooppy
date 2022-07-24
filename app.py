@@ -6,12 +6,19 @@ import json
 
 from flask import Flask, render_template, request, jsonify   
 app = Flask(__name__,template_folder='templates')
-myfile=open(r"S.txt","r")
-Myfile=open(r"S1.txt","r")
+
+with open("S.txt","r", errors='replace') as myfile:
+    l=myfile.readline()
+
+with open("S1.txt","r", errors='replace') as Myfile:
+    L=Myfile.readline()
+
+#myfile=open(r"S.txt","r")
+#Myfile=open(r"S1.txt","r")
 
 price={"apple":50,"banana":17,"grapes":10,"coconut":15,"amul lassi":10,"amul paneer":400,"amul cheese spread":300,"amul taaza":50,"pencil":1,"bag":200,"bottle":180,"notebook":200,"shampoo":250,"oil":120,"soap":90,"face cream":160}
-l=myfile.readline()
-L=Myfile.readline()
+#l=myfile.readline()
+#L=Myfile.readline()
 if l=="":
     p=dict()
     
