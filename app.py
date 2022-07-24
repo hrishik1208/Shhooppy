@@ -23,15 +23,20 @@ if l=="":
     p=dict()
     
 else:
-    myfile=open(r"S.txt","rb")
-    p=pickle.load(myfile)
+    with open("S.txt","rb") as myfile:
+        p=pickle.load(myfile)
+
+    # myfile=open(r"S.txt","rb")
+    # p=pickle.load(myfile)
 myfile.close()
 Myfile.close()
 if L=="":
     P=dict()
 else:
-    Myfile=open(r"S1.txt","rb")
-    P=pickle.load(Myfile)
+    with open("S1.txt","rb") as Myfile:
+        P=pickle.load(Myfile)
+    # Myfile=open(r"S1.txt","rb")
+    # P=pickle.load(Myfile)
 Myfile.close()
 @app.route("/")
 def home():
@@ -69,23 +74,38 @@ def processJSON():
                 p[lst1[i]]+=lst2[i]
             else:
                 p[lst1[i]]=lst2[i]
-        myfile=codecs.open("S.txt","wb",encoding="utf-8")
-        pickle.dump(p,myfile)
+        
+        with open("S.txt","wb") as myfile:
+            pickle.dump(p,myfile)
+        # myfile=codecs.open("S.txt","wb",encoding="utf-8")
+        # pickle.dump(p,myfile)
         myfile.close()
-        myfile=codecs.open("S.txt","rb",encoding="utf-8")
-        p=pickle.load(myfile)
+        with open("S.txt","rb") as myfile:
+            p=pickle.load(myfile)
+        # myfile=codecs.open("S.txt","rb",encoding="utf-8")
+        # p=pickle.load(myfile)
         myfile.close()
         
-        Myfile=codecs.open("S1.txt","wb",encoding="utf-8")
         P[SUM]=l1
-        pickle.dump(P,Myfile)
+        with open("S1.txt","wb") as Myfile:
+            pickle.dump(P,Myfile)
+
+        # Myfile=codecs.open("S1.txt","wb",encoding="utf-8")
+        # pickle.dump(P,Myfile)
         Myfile.close()
-        Myfile=codecs.open("S1.txt","rb",encoding="utf-8")
-        P=pickle.load(Myfile)
+        with open("S1.txt","rb") as Myfile:
+            P=pickle.load(Myfile)
+
+        # Myfile=codecs.open("S1.txt","rb",encoding="utf-8")
+        # P=pickle.load(Myfile)
         Myfile.close()
-        n=codecs.open("p.txt","w",encoding="utf-8")
-        n.write(str(lst1)+"\n")
-        n.write(str(lst2)+"\n")
+
+        with open("p.txt","w", errors='replace') as n:
+            n.write(str(lst1)+"\n")
+            n.write(str(lst2)+"\n")   
+        # n=codecs.open("p.txt","w",encoding="utf-8")
+        # n.write(str(lst1)+"\n")
+        # n.write(str(lst2)+"\n")
         n.close()
         s="Order Saved in text file and "
         return str(s)+"Total order costs you about "+str(SUM)
@@ -94,8 +114,11 @@ def processJSON():
 
 @app.route("/view")
 def view():
-    myfile=codecs.open("S.txt","rb",encoding="utf-8")
-    p=pickle.load(myfile)
+    with open("S.txt","rb") as myfile:
+        p=pickle.load(myfile)
+
+    # myfile=codecs.open("S.txt","rb",encoding="utf-8")
+    # p=pickle.load(myfile)
     myfile.close()
     return render_template("view.html",p=p)
 
@@ -127,11 +150,16 @@ def processjSON():
                     p[lst1[i]]-=lst2[i]
                 else:
                     p[lst1[i]]=0
-        myfile=codecs.open("S.txt","wb",encoding="utf-8")
-        pickle.dump(p,myfile)
+
+        with open("S.txt","wb") as myfile:
+            pickle.dump(p,myfile)
+        # myfile=codecs.open("S.txt","wb",encoding="utf-8")
+        # pickle.dump(p,myfile)
         myfile.close()
-        myfile=codecs.open("S.txt","rb",encoding="utf-8")
-        p=pickle.load(myfile)
+        with open("S.txt","rb") as myfile:
+            p=pickle.load(myfile)
+        # myfile=codecs.open("S.txt","rb",encoding="utf-8")
+        # p=pickle.load(myfile)
         myfile.close()
         s="Items Removed From Stock Successfully"
         return str(s)
